@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAZE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="gameContainer">
+        <div id="welcomeScreen">
+            <h1>Blind Maze</h1>
+            <input type="text" name="userNameInput" id="userNameInput" placeholder="Enter your name">
+            <button id="playGameBtn" >Play Game</button>
+            <div class="flex">
+                <button id="instructionBtn">Show Instruction</button>
+                <button id="leaderboardBtn">Show Leaderboard</button>
+            </div>
+        </div>
+        <div id="gameScreen"  style="display: none;">
+            <div id="gameInfo">
+                <span id="userNameDisplay">Username:Guest</span>
+                <span>Lives: <span id="livesDisplay">5</span></span>
+                <span>Stage: <span id="stageDisplay">1</span></span>
+                <span>Timer: <span id="timerDisplay">0</span></span>
+            </div>
+            <div id="mazeBoard">
+
+            </div>
+            <button id="hintBtn">(1)</button>
+        </div>
+    </div>
+
+    <script src="script.js">
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+*{
+    box-sizing: border-box;
+}
+button{
+    /* border: none; */
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Helvetica, sans-serif;
+    overflow: hidden;
+}
+
+#gameContainer{
+    width: 1000px;
+    height: 600px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+#welcomeScreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+}
+
+
+#welcomeScreen input, #welcomeScreen button {
+    padding: 5px 8px;
+    margin-top: 5px;
+}
+#welcomeScreen input{
+    width: 50%;
+}
+#welcomeScreen #playGameBtn{
+    background-color: green;
+    color: rgba(0, 0, 0, 0.708);
+}
+#welcomeScreen #playGameBtn:disabled{
+    background-color: rgba(0, 128, 0, 0.644);
+}
+#welcomeScreen #instructionBtn, #welcomeScreen #leaderboardBtn{
+    flex-grow: 1;
+}
+
+#gameScreen{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+#gameScreen #gameInfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #eee;
+}
+#gameScreen #mazeBoard {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 1px;
+    background-color: #ccc;
+    padding: 5px;
+}
+
+.mazeCell{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+/* Nanti kita tambah class buat player, start, finish, wall */
+.player{background-color: blue; z-index: 100;}
+.start{border: 6px solid lightgreen;}
+.finish{border: 6px solid lightcoral;}
+.wall{background-color: grey;}
+.wall-memorizing{background-color: dimgray;}
