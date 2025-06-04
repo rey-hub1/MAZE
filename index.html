@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAZE</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="src/css/style.css">
 </head>
 <body>
 
-    <div id="gameContainer">
-        <div id="welcomeScreen">
-            <h1>Blind Maze</h1>
-            <input type="text" name="userNameInput" id="userNameInput" placeholder="Enter your name">
-            <button id="playGameBtn" >Play Game</button>
+    <div id="gameContainer" >
+        <div id="welcomeScreen" >
+            <!-- <h2>Welcome To</h2> -->
+            <h1>BLIND MAZE</h1>
+            <input autocomplete="off" type="text" name="userNameInput" id="userNameInput" placeholder="Enter your name">
             <div class="flex">
-                <button id="instructionBtn">Show Instruction</button>
-                <button id="leaderboardBtn">Show Leaderboard</button>
+                <button class="btn" id="instructionsBtn">Show Instruction</button>
+                <button class="btn" id="playGameBtn" disabled>Play Game</button>
+                <button class="btn" id="leaderboardBtn">Show Leaderboard</button>
             </div>
         </div>
         <div id="gameScreen"  style="display: none;">
@@ -32,7 +33,39 @@
         </div>
     </div>
 
-    <script src="script.js">
+    <div id="goPopUp" style="display: none;">
+        <h2>Game Over</h2>
+        <p>Username : <span id="goUsername"></span></p>
+        <p>Stage Reached : <span id="goStage"></span></p>
+        <button id="saveScoreBtn">Save Score</button>
+        <button id="playAgainBtn">Play Again</button>
+    </div>
+    
+    <div id="instructionsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="closeInstructionsBtn" class="closeBtn">&times;</span>
+            <h2 style="margin-bottom: 25px;">How To Play</h2>
+            <div>
+                <p>1. Enter your username and click Play Game.</p>
+                <p>2. Memorize the maze layout for 10 seconds.</p>
+                <p>3. After 10 seconds, the walls will disappear.</p>
+                <p>4. Use arrow keys to navigate to the finish (red square) within 20 seconds.</p>
+                <p>5. Hitting a wall or running out of time costs 1 life.</p>
+                <p>6. You have 5 lives. Good luck!</p>
+            </div>
+        </div>
+    </div>
+    <div id="leaderboardModal" class="modal"  style="display: none;">
+        <div class="modal-content">
+            <span id="closeLeaderboardBtn" class="closeBtn">&times;</span>
+            <h2>Leaderboard</h2>
+            <ul id="leaderboardList">
+                
+            </ul>
+        </div>
+    </div>
+
+    <script src="src/js/script.js">
         
     </script>
 </body>
