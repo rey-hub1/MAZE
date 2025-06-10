@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   // MUSIC PLAY
-  document.addEventListener('click', function () {
+  document.addEventListener("click", function () {
     bgm.play();
-  })
+  });
 
   userNameInput.addEventListener("input", () => {
     if (userNameInput.value.trim() !== "") {
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   function initGameScreen() {
-  userNameDisplay.textContent = `Username ${playerUserName}`;
+    userNameDisplay.textContent = `Username ${playerUserName}`;
     livesDisplay.textContent = currentLives;
     stageDisplay.textContent = currentStage;
     // timerDisplay.textContent = `${gameTimer}s`;
@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleWallCollision() {
     canPlayerMove = false;
     clearInterval(moveTimerId);
-    showDanger("You Hit A wall")
+    showDanger("You Hit A wall");
     currentLives--;
     updateGameInfoDisplay();
     if (currentLives <= 0) {
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-  function generateRandomWalls() {
+  function o95generateRandomWalls() {
     // Reset semua jalur 0
     for (let r = 0; r < 10; r++) {
       mazeLayout[r] = [];
@@ -501,7 +501,7 @@ document.addEventListener("DOMContentLoaded", () => {
       overlayElement.id = id;
       overlayElement.textContent = teks.toUpperCase();
     }
-    overlayElement.style.zIndex = 10
+    overlayElement.style.zIndex = 10;
     parent.appendChild(overlayElement);
     return overlayElement;
   }
@@ -545,18 +545,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showDanger(text) {
     alertDanger.textContent = text;
-    alertDanger.classList.add("show")
+    alertDanger.classList.add("show");
 
     setTimeout(() => {
-    alertDanger.classList.remove("show")
+      alertDanger.classList.remove("show");
     }, 2000);
   }
   function showSuccess(text) {
     alertSuccess.textContent = text;
-    alertSuccess.classList.add("show")
+    alertSuccess.classList.add("show");
 
     setTimeout(() => {
-      alertSuccess.classList.remove("show")
+      alertSuccess.classList.remove("show");
     }, 2000);
   }
 });
