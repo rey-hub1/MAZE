@@ -148,7 +148,7 @@ body{
 }
 
 /* Nanti kita tambah class buat player, start, finish, wall */
-.player{background-color: blue; z-index: 100;}
+.player{background-color: blue; }
 .start{border: 6px solid lightgreen;}
 .finish{border: 6px solid lightcoral;}
 .wall{background-color: rgb(255, 255, 255);}
@@ -193,4 +193,25 @@ body{
 
 .btn:disabled{
     cursor: not-allowed;
+}
+
+.alert{
+    padding: 10px 20px;
+    position: fixed;
+    top: -15vh;
+    color: whitesmoke;
+    border-radius: 4px;
+    transition: 0.3s ease-in-out;
+    z-index: 9999;
+}
+
+#alertDanger{
+    background-color: red;
+}
+#alertSuccess{
+    background-color: rgb(73, 218, 48);
+}
+
+.alert.show{
+    top: 15vh;
 }

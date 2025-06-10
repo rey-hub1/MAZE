@@ -1,53 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const get = (get) => document.getElementById(get);
-  const welcomeScreen = get("welcomeScreen");
-  let welcomeStyle = window.getComputedStyle(welcomeScreen);
-
-  const userNameInput = get("userNameInput");
-  const playGameBtn = get("playGameBtn");
-
-  const gameScreen = get("gameScreen");
-  const gameInfo = get("gameInfo");
-  const userNameDisplay = get("userNameDisplay");
-  const livesDisplay = get("livesDisplay");
-  const stageDisplay = get("stageDisplay");
-  const timerDisplay = get("timerDisplay");
-  const mazeBoard = get("mazeBoard");
-  const hintBtn = get("hintBtn");
-
-  const goPopup = get("goPopUp");
-  const goUsername = get("goUsername");
-  const goStage = get("goStage");
-  const saveScoreBtn = get("saveScoreBtn");
-  const playAgainBtn = get("playAgainBtn");
-
-  const instructionBtn = get("instructionsBtn");
-  const instructionModal = get("instructionsModal");
-  const closeInstructionBtn = get("closeInstructionsBtn");
-
-  const leaderboardBtn = get("leaderboardBtn");
-  const leaderboardModal = get("leaderboardModal");
-  const closeLeaderboardBtn = get("closeLeaderboardBtn");
-  const leaderboardList = get("leaderboardList");
-
-  let playerUserName;
-  let gameTimer;
-  let currentLives;
-  let currentStage = 1;
-  let playerPosition = { row: 0, col: 0 };
-  let startPosition = { row: 0, col: 0 };
-  let finishPosition = { row: 0, col: 0 };
-  let mazeLayout = []; // Array 2D untuk simpan layout maze (0=path, 1=wall)
-  let hintUsedThisStage;
-
-  let moveTimerId;
-  let memorizingTimerId;
+  // MUSIC PLAY
+  document.addEventListener('click', function () {
+    bgm.play();
+  })
 
   userNameInput.addEventListener("input", () => {
     if (userNameInput.value.trim() !== "") {
       playerUserName = userNameInput.value.trim();
       playGameBtn.disabled = false;
-      // PR1
     } else {
       playGameBtn = "Guest";
       playGameBtn.disabled = true;
@@ -67,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (canPlayerMove && !hintUsedThisStage) {
       hintUsedThisStage = true;
       hintBtn.disabled = true;
-      hintBtn.textContent = `Hint: ${hintUsedThisStage}`;
+      hintBtn.textContent = `Hint: ${e}`;
 
       // Tampilkan Tembok Selama 1 detik
       const wallElements = [];
@@ -106,21 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
     leaderboardModal.style.display = "none";
   });
 
-  saveScoreBtn.addEventListener('click', () => {
-    const scores = JSON.parse(localStorage.getItem('blindMazeScore')) || [];
-    scores.push({username: playerUserName, stage: currentStage});
+  saveScoreBtn.addEventListener("click", () => {
+    const scores = JSON.parse(localStorage.getItem("blindMazeScore")) || [];
+    scores.push({ username: playerUserName, stage: currentStage });
     // Sort Descending
-    scores.sort((a,b) => b.stage - a.stage )
-    localStorage.setItem('blindMazeScore', JSON.stringify(scores));
-    alert("Score Saved");
-    goPopup.style.display = 'none';
-    welcomeScreen.style.display = 'flex';
-    userNameInput.value = ''
-    playGameBtn.disabled = true
-  })
-  
+    scores.sort((a, b) => b.stage - a.stage);
+    localStorage.setItem("blindMazeScore", JSON.stringify(scores));
+    showSuccess("Score Saved");
+    goPopup.style.display = "none";
+    welcomeScreen.style.display = "flex";
+    userNameInput.value = "";
+    playGameBtn.disabled = true;
+  });
+
   function displayLeaderboard() {
-    const scores = JSON.parse(localStorage.getItem('blindMazeScore')) || [];
+    const scores = JSON.parse(localStorage.getItem("blindMazeScore")) || [];
     leaderboardList.innerHTML = "";
     if (scores.length === 0) {
       leaderboardBtn.innerHTML = "<li><strong>No Scores Yet</strong></li>";
@@ -133,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   function initGameScreen() {
-    userNameDisplay.textContent = `Username ${playerUserName}`;
+  userNameDisplay.textContent = `Username ${playerUserName}`;
     livesDisplay.textContent = currentLives;
     stageDisplay.textContent = currentStage;
     // timerDisplay.textContent = `${gameTimer}s`;
@@ -273,15 +233,19 @@ document.addEventListener("DOMContentLoaded", () => {
     switch (event.key) {
       case "ArrowUp":
         newRow--;
+        ySound.play();
         break;
       case "ArrowDown":
         newRow++;
+        ySound.play();
         break;
       case "ArrowLeft":
         newCol--;
+        xSound.play();
         break;
       case "ArrowRight":
         newCol++;
+        xSound.play();
         break;
       case "i":
         hintBtn.click();
@@ -308,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleWallCollision() {
     canPlayerMove = false;
     clearInterval(moveTimerId);
-    alert("You Hit a wall");
+    showDanger("You Hit A wall")
     currentLives--;
     updateGameInfoDisplay();
     if (currentLives <= 0) {
@@ -319,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function handleStageRestart() {
-    alert("Restarting Stage..");
+    console.log("Restarting Stage..");
     // player Kembali Ke tempat semula
     playerPosition = { ...startPosition };
     updatePlayerPositionOnGrid();
@@ -335,7 +299,8 @@ document.addEventListener("DOMContentLoaded", () => {
       clearInterval(moveTimerId);
       clearInterval(memorizingTimerId);
       canPlayerMove = false;
-      alert(`Stage ${currentStage} Finish!`);
+      showSuccess(`Stage ${currentStage} Finish!`);
+
       currentStage++;
       updateGameInfoDisplay();
       // Jika Langsung Mau ke stage Berikutnya
@@ -359,8 +324,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mazeLayout[finishPosition.row][finishPosition.col] = "finish_node";
 
     // Random
-    let Persentase = clamp(0.2 + currentStage * 0.029, 0.2, 0.4);
-    console.log("Random Persentase: ", Persentase);
+    let Persentase = clamp(0.2 + currentStage * 0.025, 0.2, 0.35);
+    console.log("Random Persentase Wall: ", Persentase);
 
     // Algoritma sederhana (kurang ideal) untuk generate tembok
     for (let r = 0; r < 10; r++) {
@@ -521,7 +486,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (timeLeft < 0) {
         clearInterval(moveTimerId);
         if (canPlayerMove) {
-          alert("Handle Time Up");
+          showDanger("Time Up");
           handleTimeUp();
         }
       }
@@ -536,13 +501,14 @@ document.addEventListener("DOMContentLoaded", () => {
       overlayElement.id = id;
       overlayElement.textContent = teks.toUpperCase();
     }
+    overlayElement.style.zIndex = 10
     parent.appendChild(overlayElement);
     return overlayElement;
   }
 
   function handleTimeUp() {
     canPlayerMove = false;
-    alert("time Up");
+    showDanger("time Up");
     currentLives--;
     updateGameInfoDisplay();
     if (currentLives <= 0) {
@@ -575,5 +541,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function clamp(nilai, batasMin, batasMax) {
     return Math.max(batasMin, Math.min(nilai, batasMax));
+  }
+
+  function showDanger(text) {
+    alertDanger.textContent = text;
+    alertDanger.classList.add("show")
+
+    setTimeout(() => {
+    alertDanger.classList.remove("show")
+    }, 2000);
+  }
+  function showSuccess(text) {
+    alertSuccess.textContent = text;
+    alertSuccess.classList.add("show")
+
+    setTimeout(() => {
+      alertSuccess.classList.remove("show")
+    }, 2000);
   }
 });
