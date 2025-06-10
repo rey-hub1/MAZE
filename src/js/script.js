@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-  function o95generateRandomWalls() {
+  function generateRandomWalls() {
     // Reset semua jalur 0
     for (let r = 0; r < 10; r++) {
       mazeLayout[r] = [];
